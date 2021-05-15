@@ -5,11 +5,11 @@
 //  Created by Azat Kaiumov on 08.05.2021.
 //
 
-struct Book {
-    let author: String
+struct Book: Hashable {
     let title: String
+    let author: String
 
-    init(author: String = "Author", title: String = "Title") {
+    init(title: String = "Title", author: String = "Author") {
         self.author = author
         self.title = title
     }

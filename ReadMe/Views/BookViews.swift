@@ -10,6 +10,7 @@ import SwiftUI
 extension Book {
     struct Image: View {
         let title: String
+        let size: CGFloat?
         
         var body: some View {
             let symbol = SwiftUI.Image(title: title)
@@ -18,22 +19,28 @@ extension Book {
             symbol
                 .resizable()
                 .scaledToFit()
-                .frame(width: 80, height: 90)
+                .frame(width: size, height: size)
                 .font(Font.title.weight(.light))
                 .foregroundColor(.secondary)
         }
     }
-}
-
-struct BookViews_Previews: PreviewProvider {
-    static var previews: some View {
-        VStack {
-            Book.Image(title: Book().title)
-            Book.Image(title: "")
+    
+    struct TitleAndAuthorStack: View {
+        let book: Book
+        let titleFont: Font
+        let authorFont: Font
+        
+        var body: some View {
+            VStack(alignment: .leading) {
+                Text(book.title)
+                    .font(titleFont)
+                Text(book.author)
+                    .font(authorFont)
+                    .foregroundColor(.secondary)
+            }.lineLimit(1)
         }
     }
 }
-
 
 extension Image {
     init?(title: String) {
@@ -46,3 +53,14 @@ extension Image {
         self.init(systemName: systemName)
     }
 }
+
+struct BookViews_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack {
+            Book.Image(title: Book().title, size: 80.0)
+            Book.Image(title: "", size: 80.0)
+            Book.TitleAndAuthorStack(book: Book(), titleFont: .title, authorFont: .title2)
+        }
+    }
+}
+
