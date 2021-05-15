@@ -12,7 +12,10 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List(library.sortedBooks, id: \.self) { book in
-                BookRow(book: book, image: $library.uiImages[book])
+                BookRow(
+                    book: book,
+                    image: $library.uiImages[book]
+                )
             }.navigationTitle("My Library")
         }
     }
@@ -27,7 +30,12 @@ struct BookRow: View {
             destination: DetailView(book: book, image: $image)
         )  {
             HStack {
-                Book.Image(title: book.title, size: 80.0)
+                Book.Image(
+                    uiImage: image,
+                    title: book.title,
+                    size: 80.0,
+                    cornderRadius: 12.0
+                )
                 Book.TitleAndAuthorStack(book: book, titleFont: .title2, authorFont: .title3)
                     .lineLimit(1)
             }.padding(.vertical, 8)

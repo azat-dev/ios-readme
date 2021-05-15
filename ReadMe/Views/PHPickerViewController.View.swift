@@ -57,7 +57,10 @@ extension PHPickerViewController.Delegate: PHPickerViewControllerDelegate {
     didFinishPicking results: [PHPickerResult]
   ) {
     results.first?.itemProvider.loadObject(ofClass: UIImage.self) { image, error in
-      DispatchQueue.main.async { self.image = image as? UIImage }
+      DispatchQueue.main.async {
+        self.image = image as? UIImage
+        
+      }
     }
 
     picker.dismiss(animated: true)

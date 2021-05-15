@@ -23,7 +23,12 @@ struct DetailView: View {
                 titleFont: .title,
                 authorFont: .title2
             )
-            Book.Image(title: book.title, size: nil)
+            Book.Image(
+                uiImage: image,
+                title: book.title,
+                size: nil,
+                cornderRadius: 16.0
+            ).scaledToFit()
             Button("Update Image...", action: { showingImagePicker = true}).padding()
             Spacer()
         }.padding()

@@ -9,19 +9,31 @@ import SwiftUI
 
 extension Book {
     struct Image: View {
+        var uiImage: UIImage?
         let title: String
         let size: CGFloat?
+        let cornderRadius: CGFloat
         
         var body: some View {
-            let symbol = SwiftUI.Image(title: title)
-                ?? .init(systemName: "book")
             
-            symbol
-                .resizable()
-                .scaledToFit()
-                .frame(width: size, height: size)
-                .font(Font.title.weight(.light))
-                .foregroundColor(.secondary)
+            if let image = uiImage.map(SwiftUI.Image.init) {
+                image
+                    .resizable()
+                    .frame(width: size, height: size)
+                    .scaledToFill()
+                    .cornerRadius(cornderRadius)
+                
+            } else {
+                let symbol = SwiftUI.Image(title: title)
+                    ?? .init(systemName: "book")
+                
+                symbol
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: size, height: size)
+                    .font(Font.title.weight(.light))
+                    .foregroundColor(.secondary)
+            }
         }
     }
     
@@ -54,12 +66,37 @@ extension Image {
     }
 }
 
+extension Book.Image {
+    init(title: String) {
+        self.init(
+            uiImage: nil,
+            title: title,
+            size: nil,
+            cornderRadius: .init()
+        )
+    }
+}
+
 struct BookViews_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            Book.Image(title: Book().title, size: 80.0)
-            Book.Image(title: "", size: 80.0)
-            Book.TitleAndAuthorStack(book: Book(), titleFont: .title, authorFont: .title2)
+            Book.Image(
+                uiImage: nil,
+                title: Book().title,
+                size: 80.0,
+                cornderRadius: 12
+            )
+            Book.Image(
+                uiImage: nil,
+                title: "",
+                size: 80.0,
+                cornderRadius: 12
+            )
+            Book.TitleAndAuthorStack(
+                book: Book(),
+                titleFont: .title,
+                authorFont: .title2
+            )
         }.previewedInAllColorSchemes
     }
 }
