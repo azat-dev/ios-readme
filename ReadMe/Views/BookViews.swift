@@ -60,7 +60,16 @@ struct BookViews_Previews: PreviewProvider {
             Book.Image(title: Book().title, size: 80.0)
             Book.Image(title: "", size: 80.0)
             Book.TitleAndAuthorStack(book: Book(), titleFont: .title, authorFont: .title2)
-        }
+        }.previewedInAllColorSchemes
     }
 }
 
+extension View {
+    var previewedInAllColorSchemes: some View {
+        ForEach(
+            ColorScheme.allCases,
+            id: \.self,
+            content: preferredColorScheme
+        )
+    }
+}

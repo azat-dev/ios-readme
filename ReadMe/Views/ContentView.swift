@@ -30,7 +30,7 @@ struct BookRow: View {
                 Book.Image(title: book.title, size: 80.0)
                 Book.TitleAndAuthorStack(book: book, titleFont: .title2, authorFont: .title3)
                     .lineLimit(1)
-            }
+            }.padding(.vertical, 8)
         }
     }
 }
@@ -38,5 +38,6 @@ struct BookRow: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .previewedInAllColorSchemes
     }
 }
